@@ -33,7 +33,7 @@ public class Record {
     private int id;
 
     @Column
-    Intent intent;
+    String intent;
 
     @Column
     String notification_url;
@@ -44,8 +44,7 @@ public class Record {
     @Column
     TransactionDetails transaction;
 
-    @Column
-    String description;
+    public Record(){}
 
     public int getId() {
         return id;
@@ -71,19 +70,12 @@ public class Record {
         this.transaction = transaction;
     }
 
-    public String getDescription() {
-        return description;
-    }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public Intent getIntent() {
+    public String getIntent() {
         return intent;
     }
 
-    public void setIntent(Intent intent) {
+    public void setIntent(String intent) {
         this.intent = intent;
     }
 

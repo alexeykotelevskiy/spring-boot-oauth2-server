@@ -6,7 +6,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 
-public class Responce {
+public class Response {
 
 
     private String id;
@@ -15,7 +15,7 @@ public class Responce {
 
     private State state;
 
-    public Responce(String id, String time, State state){
+    public Response(String id, String time, State state){
         this.id = id;
         this.createTime = time;
         this.state = state;

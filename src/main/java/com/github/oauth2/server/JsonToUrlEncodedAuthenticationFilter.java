@@ -21,10 +21,6 @@ import org.springframework.security.web.savedrequest.Enumerator;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-/**
- *
- * @author Aldwin Delgado
- */
 @Component
 public class JsonToUrlEncodedAuthenticationFilter extends OncePerRequestFilter {
 

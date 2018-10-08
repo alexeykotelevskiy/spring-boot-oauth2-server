@@ -2,20 +2,32 @@ package com.github.oauth2.server.pojo;
 
 public class TransactionDetails {
 
-    private String externalId;
+    private String external_id;
     private Amount amount;
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    private  String description;
+
+    public TransactionDetails(){}
+
     public TransactionDetails( String externalId, Amount amount){
-        this.externalId = externalId;
+        this.external_id = externalId;
         this.amount = amount;
     }
 
-    public String getExternalId() {
-        return externalId;
+    public String getExternal_id() {
+        return external_id;
     }
 
-    public void setExternalId(String externalId) {
-        this.externalId = externalId;
+    public void setExternal_id(String externalId) {
+        this.external_id = externalId;
     }
 
     public Amount getAmount() {

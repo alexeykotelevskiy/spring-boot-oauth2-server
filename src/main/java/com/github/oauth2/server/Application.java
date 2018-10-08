@@ -5,22 +5,18 @@
  */
 package com.github.oauth2.server;
 
+import com.github.oauth2.server.pojo.InvalidAmountException;
 import com.github.oauth2.server.pojo.Record;
-import com.github.oauth2.server.pojo.Responce;
+import com.github.oauth2.server.pojo.Response;
 import com.github.oauth2.server.pojo.State;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
+import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
-/**
- *
- * @author Aldwin Delgado
- */
 @SpringBootApplication
 @Controller
 public class Application {
@@ -40,7 +36,18 @@ public class Application {
             value = "/payments/payment",
             method = RequestMethod.POST
     )
-    public ResponseEntity<Responce> createPayment(Record record) {
-        return new ResponseEntity<Responce>(new Responce(record.getId()+"", "time", State.CREATED), HttpStatus.OK);
+    public ResponseEntity<Response> createPayment( @RequestHeader("Content-Type") String contentType,
+                                                   @RequestBody Record record) {
+        System.out.println(record.getTransaction().getDescription());
+        if (contentType.equals("application/json")) {
+            return new ResponseEntity<Response>(new Response(record.getId() + "", "time", State.CREATED), HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.UNSUPPORTED_MEDIA_TYPE);
+    }
+
+    @ExceptionHandler(InvalidAmountException.class)
+    public ResponseEntity validateFail()
+    {
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 }

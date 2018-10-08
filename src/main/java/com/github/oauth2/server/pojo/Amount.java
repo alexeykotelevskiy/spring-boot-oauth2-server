@@ -1,28 +1,21 @@
 package com.github.oauth2.server.pojo;
 
-import java.util.Currency;
-
 public class Amount {
 
     private String value;
     private String currency;
-
+    public Amount(){}
     //If one of these methods throw exception - we have invalid amount
-    Amount(String value, String currency) throws InvalidAmountException {
 
-        if (value.length() > 10) {
-            throw new InvalidAmountException();
-        }
-        double res = Double.parseDouble(value);
-
-        Currency curr = Currency.getInstance(currency);
-    }
 
     public String getValue() {
         return value;
     }
 
-    public void setValue(String value) {
+    public void setValue(String value) throws InvalidAmountException{
+        if (value.length() > 10) {
+            throw new InvalidAmountException();
+        }
         this.value = value;
     }
 
@@ -35,5 +28,4 @@ public class Amount {
     }
 }
 
-class InvalidAmountException extends Exception {
-}
+
