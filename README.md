@@ -1,32 +1,27 @@
-Sample standalone OAuth2 authorization server for Spring Boot (Uses in-memory token store)
-
-The requesting method for token supports both ```json format``` and ```url-encoded format```
-
-
-The token validity is currently 60secs.
-
-
-Update any of the ```clienId```/```clientPassword```/```tokenValidity``` to however you want.
-## Other implementations
-* Using [JDBC](https://github.com/aldwindelgado/spring-boot-oauth2-server/tree/jdbc) with default token
-* Using [JDBC with JWT](https://github.com/aldwindelgado/spring-boot-oauth2-server/tree/jwt) as the token
-
-## Running
-```shell
-mvn clean package spring-boot:run
-```
-
-## Request for a token 
-Use any of the curl commands to request an access token.
-
-#### Using URL-Encoded Format
-```
-curl -X POST -H "Authorization: Basic YWNjb3VudDpwYXNzd29yZA=="  -H "Content-Type: application/x-www-form-urlencoded" -v localhost:8080/oauth/token?grant_type=client_credentials
-```
-#### Using JSON Format
-```
-curl -X POST -H "Authorization: Basic YWNjb3VudDpwYXNzd29yZA=="  -H "Content-Type: application/json" -d '{ "grant_type": "client_credentials" }' -v localhost:8080/oauth/token
-```
-
-## Resource Server
-See [spring-boot-oauth2-client](https://github.com/aldwindelgado/spring-boot-oauth2-client) for running the oauth-client (resource server)
+How to test:
+Authorization:
+curl -v https://api.testpay.com/oauth2/token \
+-H "Accept: application/json" \
+-H "Accept-Language: en_US" \
+-u "<client_id>:<secret>" \
+-d "grant_type=client_credentials"
+  
+Payment:
+curl -v https://api.testpay.com/payments/payment \
+-H "Content-Type: application/json" \
+-H "Authorization: Bearer <Access-Token>" \
+-d '{
+"intent": "order",
+"notification_url": "https://example.com/your_notification_url",
+"payer": {
+"email": "test@example.com"
+},
+"transaction": {
+"external_id": “123456789”
+"amount": {
+"value": "7.47",
+"currency": "USD"
+},
+"description": “The payment transaction description”
+}
+}'
